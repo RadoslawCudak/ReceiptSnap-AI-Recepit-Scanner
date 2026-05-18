@@ -125,7 +125,7 @@ def process_receipt(myblob: func.InputStream):
                 raw_merchant_name = str(merchant.value) if merchant and hasattr(merchant, 'value') and merchant.value else "Nieznany Sklep"
                 transaction_date = str(date.value) if date and hasattr(date, 'value') and date.value else "Brak daty"
 
-                # --- NOWOŚĆ: WYWOŁANIE INTELIGENTNEGO CZYSZCZENIA NAZWY SKLEPU ---
+                # --- WYWOŁANIE INTELIGENTNEGO CZYSZCZENIA NAZWY SKLEPU ---
                 merchant_name = clean_merchant_name(raw_merchant_name)
 
                 # 1. Zapis nagłówka

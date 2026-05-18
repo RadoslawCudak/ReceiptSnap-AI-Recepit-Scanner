@@ -3,11 +3,11 @@ name: Deploy Python Function App to Azure
 on:
   push:
     branches:
-      - main  
+      - main
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'receipt-scanner-Func-App-001' 
-  PYTHON_VERSION: '3.12'                                       
+  AZURE_FUNCTIONAPP_NAME: 'receipt-scanner-Func-App-001'
+  PYTHON_VERSION: '3.12'
 
 jobs:
   build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
     - name: 'Setup Python Environment'
       uses: actions/setup-python@v5
       with:
-        python-context: ${{ env.PYTHON_VERSION }}
+        python-version: ${{ env.PYTHON_VERSION }}
 
     - name: 'Resolve Dependencies Using Pip'
       run: |
@@ -28,10 +28,15 @@ jobs:
         pip install -r requirements.txt --target=".python_packages/lib/site-packages"
         popd
 
+    - name: 'Login to Azure'
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+  
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         package: './'
-        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
