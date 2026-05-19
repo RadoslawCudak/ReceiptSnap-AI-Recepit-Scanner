@@ -53,7 +53,7 @@ def ask_ai_for_category(product_name: str) -> str:
             api_key=os.environ["AZURE_OPENAI_KEY"],
             api_version="2024-02-01"
         )
-        allowed_categories = "spozywcze podstawowe, mieso i ryby, warzywa i owoce, napoje, zwierzeta, dziecko, nabiał, chemia i kosmetyki, przekąski i słodycze, inne"
+        allowed_categories = "spozywcze podstawowe, mieso i ryby, warzywa i owoce, napoje, zwierzeta, dziecko, nabiał, chemia i kosmetyki, przekąski i słodycze,alkohol, inne"
         
         response = client.chat.completions.create(
             model=os.environ["AZURE_OPENAI_DEPLOYMENT"],
